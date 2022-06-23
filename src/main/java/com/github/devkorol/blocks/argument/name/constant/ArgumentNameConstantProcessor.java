@@ -54,8 +54,9 @@ public class ArgumentNameConstantProcessor extends AbstractProcessor {
     for (Element method : annotatedMethods) {
       List<? extends VariableElement> parameters = ((ExecutableElement) method).getParameters();
       if (parameters.isEmpty()) {
-        processingEnv.getMessager().printMessage(Kind.ERROR,
-            "@ArgumentNameConstant must be applied to a method with at least one argument", method);
+        processingEnv.getMessager().printMessage(Kind.MANDATORY_WARNING,
+            "@ArgumentNameConstant should be applied to a method with at least one argument. "
+                + "Skip type generation for method ", method);
       } else {
         TypeMirror markedClass = method.getEnclosingElement().asType();
         String methodName = method.getSimpleName().toString();
@@ -82,8 +83,6 @@ public class ArgumentNameConstantProcessor extends AbstractProcessor {
     String classPackage = fullName.substring(0, fullName.lastIndexOf("."));
     String paramClassName =
         className + methodName.substring(0, 1).toUpperCase() + methodName.substring(1) + "Arguments";
-
-    processingEnv.getMessager().printMessage(Kind.ERROR, fullName);
 
     JavaFileObject builderFile = processingEnv.getFiler().createSourceFile(classPackage + "." + paramClassName);
     try (PrintWriter out = new PrintWriter(builderFile.openWriter())) {
