@@ -16,23 +16,24 @@ with [blocks__business-control-core](https://github.com/devkorol/blocks__busines
 Mark some method with `@ArgumentNameConstant` annotation. The method should contain at least one argument for type
 generation.
 
-```
+```java
 import com.github.devkorol.blocks.argument.name.constant.ArgumentNameConstant;
 
 public class ArgumentNameConstantExample {
 
-    @ArgumentNameConstant
-    public void doSomeStuff(String name, Integer age) {
-        ...
-    }
+  @ArgumentNameConstant
+  public void doSomeStuff(String name, Integer age) {
+    //...
+  }
 }
 ```
 
 The code will be followed with:
 
-```
+```java
 public class ArgumentNameConstantExampleDoSomeStuffArguments {
-    public static final String name = "name";
-    public static final String age = "age";
+
+  public static final String name = "name";
+  public static final String age = "age";
 }
 ```
